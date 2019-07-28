@@ -335,6 +335,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jmvoid.github.io/2019/07/28/hackintosh-x230/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JMVoid">
+      <meta itemprop="description" content="一个专注golang,  flutter, SSR, v2ray 技术的博客,也随意聊聊政经逻">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JMVoid 博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/28/hackintosh-x230/" class="post-title-link" itemprop="url">hackintosh（黑苹果)在X230安装简要纪录</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 15:31:55 / 修改时间：15:47:18" itemprop="dateCreated datePublished" datetime="2019-07-28T15:31:55+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/os/" itemprop="url" rel="index"><span itemprop="name">os</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="X230安装的硬件准备："><a href="#X230安装的硬件准备：" class="headerlink" title="X230安装的硬件准备："></a>X230安装的硬件准备：</h2><ol>
+<li><p>要安装Hackintosh需要先将Intel的网卡换成BCM的。</p>
+</li>
+<li><p>购买BCM94352HMB 网卡，拆机更换网卡。</p>
+</li>
+<li><p>由于X230有硬件白名单问题。因此需要购买MinPro 100E和SP80夹子对于BIOS进行刷新。</p>
+</li>
+<li><p>在刷白名单有几种方法，1. 装机后弹出来硬件ID, 然后读取的Bin进行打开修改，将硬件ID写入bin后重新刻录回去bios来解决。<br>而我采用的第2种方案，就是直接用文件夹X230_WhiteList_Patch里面的方法直接对对Bios打补丁，然后再刷回BIOS有效。亲测是有效的<br>详细操作手册<br><a href="https://forum.51nb.com/forum.php?mod=viewthread&amp;tid=1737551&amp;extra=page%3D1&amp;page=1" target="_blank" rel="noopener">https://forum.51nb.com/forum.php?mod=viewthread&amp;tid=1737551&amp;extra=page%3D1&amp;page=1</a> </p>
+</li>
+<li><p>由于原系统就有Win7，但是Win 7无法认出新的网卡，需要自行搜索及下载对应的驱动</p>
+</li>
+<li><p>需要先从<br><a href="https://forum.51nb.com/forum.php?mod=viewthread&amp;tid=1857633&amp;extra=&amp;page=1" target="_blank" rel="noopener">https://forum.51nb.com/forum.php?mod=viewthread&amp;tid=1857633&amp;extra=&amp;page=1</a><br>下载相关的EFI驱动。我是使用了X230-EFI-10.14-BCM94352HMB-FakeSMC.zip 这个安装压缩包</p>
+</li>
+</ol>
+<h2 id="为了防止原网站消失，保留一些重要的信息在这里"><a href="#为了防止原网站消失，保留一些重要的信息在这里" class="headerlink" title="为了防止原网站消失，保留一些重要的信息在这里:"></a>为了防止原网站消失，保留一些重要的信息在这里:</h2><ol start="7">
+<li>先由Windows中使用Transmac将Mojova 倒进U盘作为启动盘。详细可以看操作文档</li>
+<li>由于生成U盘是苹果格式，因此windows无法打开，因此需要另一个盘将相关的EFI用于安装时使用。另外补充一下：NTFS文件格式,在macos是只能打开无法写入。</li>
+<li>需要先对进行分区删除或者划分，在MacOS中的disktuil在界面似乎无法进行分区删除,可能在命令行可以，当时有点傻，是用windows启动后对分区进行删除和创建。</li>
+<li>按下面修改bios设置。用U盘启动macos, 然后使用diskutils对相应的分区进行格式化。然后进行安装，第一次安装，主要是文件的copy. 在重启后再次进入<br>启动界面。选择macOS install in (macOS)再次安装。</li>
+<li>在安装完成后， 启动到Mac OS 后需要EFI copy进EFI. 因此需要mount EFI分区，在不少帖子里面说用Clover Configuration，但是常用工具里面的Clover configuration<br>估计是旧版本。因此无法mount上，后来转用了EFI mounter V3 mount上后，直接将FakeMSC下面的EFI文件夹之/Clover /Boot copy进 EFI分区的 FEI文件夹下面</li>
+<li>重启之后就应该相关的硬件就能适配了。<br>13。在参考 <a href="https://forum.51nb.com/forum.php?mod=viewthread&amp;tid=1743388" target="_blank" rel="noopener">https://forum.51nb.com/forum.php?mod=viewthread&amp;tid=1743388</a> 的文章中关于如果iCloud, iMessage存在问题的解决方案部分，config.plist的需要生成Serial number<br>里面又用到clover configurator. 因此到网站下载了最新的configurator后覆盖了原来旧的clover configurator, 现可正常mount EFI并且查看config.plist后，发现在已经有相关的Serial number等<br>并且根据帖子在apple中验过serial number是无效的，估计能正常用iCloud, iMessage了</li>
+</ol>
+<h2 id="安装后使用心得"><a href="#安装后使用心得" class="headerlink" title="安装后使用心得:"></a>安装后使用心得:</h2><ol>
+<li>使用数月后没有遇到大的问题. 外接一个显示器也很正常</li>
+<li>只是原alt, windows等键使用非常不习惯，但是Mac OS非常适合使用git, golang等命令编译</li>
+<li>但是在QQ 这类的使用就比较不习惯。而且很多软件在破解版也不容易找到. </li>
+<li>vmware fusion in Mac OS 比较不好用。比较卡，而据说好用的Parallels在破解版不太好找。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jmvoid.github.io/2019/07/27/record-blog-build/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -706,7 +898,7 @@ c. markdown失效的问题。如果在##代表head中有数字。##的markdown�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -727,7 +919,9 @@ c. markdown失效的问题。如果在##代表head中有数字。##的markdown�
         
           
         
-        <span class="site-state-item-count">2</span>
+          
+        
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -742,7 +936,9 @@ c. markdown失效的问题。如果在##代表head中有数字。##的markdown�
         
           
         
-        <span class="site-state-item-count">1</span>
+          
+        
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span>
         
       </div>

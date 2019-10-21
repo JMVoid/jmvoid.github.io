@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmvoid.github.io/2019/10/21/c-api-called-by-golang/</loc>
+    
+    <lastmod>2019-10-21T08:56:19.750Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmvoid.github.io/2019/10/05/v2ray-free-node-sharing/</loc>
     
     <lastmod>2019-10-05T08:44:33.944Z</lastmod>
